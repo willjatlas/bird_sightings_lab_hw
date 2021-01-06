@@ -5,6 +5,7 @@ const createRouter = function (collection) {
 
   const router = express.Router();
 
+  // INDEX route
   router.get('/', (req, res) => {
     collection
       .find()
@@ -17,6 +18,7 @@ const createRouter = function (collection) {
       });
   });
 
+  // INDEX by ID
   router.get('/:id', (req, res) => {
     const id = req.params.id;
     collection
@@ -28,6 +30,17 @@ const createRouter = function (collection) {
         res.json({ status: 500, error: err });
       });
   });
+
+  // POST route
+  router.post("/", (req, res)=>{
+    const newData = req.body;
+    collection.insertOne(newData)
+    .then((result)=>{
+      res.json(result);
+    });
+  });
+
+
 
   return router;
 };
