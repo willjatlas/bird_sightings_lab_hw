@@ -40,6 +40,15 @@ const createRouter = function (collection) {
     });
   });
 
+  // DELETE route
+  router.delete("/:id", (req, res)=>{
+    const id = req.params.id;
+    collection.deleteOne({_id: ObjectID(id)})
+    .then((result)=>{
+      return res.json(result);
+    });
+  });
+
 
 
   return router;
